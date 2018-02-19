@@ -24,17 +24,42 @@ using System.Threading.Tasks;
 
 namespace Generics.Tables
 {
-    class Table<T1, T2, T3>
+    public class Table<T1, T2, T3>
     {
-        Tuple<T1, T2, T3> table;
-
-
-
-        public T1 Rows { get; set; }
-        public T2 Columns { get; set; }
+        Dictionary<Tuple<T1,T2>, T3> dictionary = new Dictionary<Tuple<T1, T2>, T3>(); 
+        public List<T1> Rows { get; set; }
+        public List<T2> Columns { get; set; }
+        
         public T3 Value { get; set; }
 
+        public OpenIndexator Open { get; set; }
 
 
+        public Table()
+        {
+            Open = new OpenIndexator(this);
+        }
+
+        public class OpenIndexator
+        {
+            Table<T1, T2, T3> table;
+            public OpenIndexator(Table<T1, T2, T3> table)
+            {
+                this.table = table;
+            }
+
+            public T3 this[T1 t1, T2 t2]
+            {
+                set
+                {
+                    if (table.Rows.Count == 0)
+                        table.Rows.Add(t1);
+                    if (table.Rows.Count == 0)
+                        table.Columns.Add(t2);
+                    value = table.dictionary.Add(Tuple.Create(t1, t2));
+                }
+            }
+
+        }
     }
 }
