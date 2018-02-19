@@ -1,0 +1,2 @@
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\obj\Debug\Generics.Tables.csprojResolveAssemblyReference.cache
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\obj\Debug\Generics.Tables.csproj.CoreCompileInputs.cache
