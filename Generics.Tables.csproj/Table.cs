@@ -26,7 +26,7 @@ namespace Generics.Tables
 {
     public class Table<T1, T2, T3>
     {
-        Dictionary<Tuple<T1, T2>, T3> dictionary;
+        private Dictionary<Tuple<T1, T2>, T3> dictionary;
         private List<T1> rows;
         private List<T2> columns;
 
@@ -58,7 +58,7 @@ namespace Generics.Tables
 
         public class OpenIndexator
         {
-            Table<T1, T2, T3> table;
+            private Table<T1, T2, T3> table;
      
             public OpenIndexator(Table<T1, T2, T3> table)
             {
@@ -70,7 +70,11 @@ namespace Generics.Tables
                 set
                 {
                     Tuple<T1, T2> Key = Tuple.Create(t1, t2); 
-                    if (!table.dictionary.ContainsKey(Key))
+                    if (table.dictionary.ContainsKey(Key))
+                    {
+                        table.dictionary[Key] = value;
+                    }
+                    else
                     {
                         if (!table.Rows.Contains(t1))
                             table.AddRow(t1);
@@ -78,25 +82,21 @@ namespace Generics.Tables
                             table.AddColumn(t2);
                         table.dictionary.Add(Key, value);
                     }
-                    else
-                    {
-                        table.dictionary[Key] = value;
-                    }
                 }
                 get
                 {
                     Tuple<T1, T2> Key = Tuple.Create(t1, t2);
-                    if (!table.dictionary.ContainsKey(Key))
-                        return default(T3);
+                    if (table.dictionary.ContainsKey(Key))
+                        return table.dictionary[Key];
                     else
-                        return table.dictionary[Tuple.Create(t1, t2)];
+                        return default(T3);
                 }
             }
         }
 
         public class ExistedIndexator
         {
-            Table<T1, T2, T3> table;
+            private Table<T1, T2, T3> table;
             public ExistedIndexator(Table<T1,T2,T3> table)
             {
                 this.table = table;
@@ -120,10 +120,10 @@ namespace Generics.Tables
                     Tuple<T1, T2> Key = Tuple.Create(t1, t2);
                     if (table.rows.Contains(t1) && table.columns.Contains(t2))
                     {
-                        if (!table.dictionary.ContainsKey(Key))
-                            return default(T3);
-                        else
+                        if (table.dictionary.ContainsKey(Key))
                             return table.dictionary[Key];
+                        else
+                            return default(T3);
                     }
                     else
                     {
