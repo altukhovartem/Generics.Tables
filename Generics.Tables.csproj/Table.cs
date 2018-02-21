@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /// <summary>
-/// 1. var table = new Table<int, string, double>(); - строки ты индексуешь числами, столбцы стрингами
+/// 1. var table = new Table< int, string, double>(); - строки ты индексуешь числами, столбцы стрингами
 /// 2. table.Open[1, "2"] = 3 - то положить в конкретную ячейку значение, в первую строку в колонку с именем 2 положить тройку
 /// 3. table.Existed["1", 1] - прочитать из существующей ячейки, тот должно падать потому что колонку создали, а строку нет, получается и ячейки нет
 /// 4. у тебя есть два вида индексаторов
@@ -33,15 +33,18 @@ namespace Generics.Tables
         public IEnumerable<T1> Rows { get => rows; set => rows = value as List<T1>; }
         public IEnumerable<T2> Columns { get => columns; set => columns = value as List<T2>; }
         public OpenIndexator Open { get; set; }
+        public ExistedIndexator Existed { get; set; }
 
         public void AddRow(T1 t1)
         {
-            rows.Add(t1);
+            if (!rows.Contains(t1))
+                rows.Add(t1);
         }
 
         public void AddColumn(T2 t2)
         {
-            columns.Add(t2);
+            if (!columns.Contains(t2))
+                columns.Add(t2);
         }
 
         public Table()
@@ -50,6 +53,7 @@ namespace Generics.Tables
             columns = new List<T2>();
             Open = new OpenIndexator(this);
             dictionary = new Dictionary<Tuple<T1, T2>, T3>();
+            Existed = new ExistedIndexator(this);
         }
 
         public class OpenIndexator
@@ -81,10 +85,52 @@ namespace Generics.Tables
                 }
                 get
                 {
-                    return table.dictionary[Tuple.Create(t1, t2)];
+                    Tuple<T1, T2> Key = Tuple.Create(t1, t2);
+                    if (!table.dictionary.ContainsKey(Key))
+                        return default(T3);
+                    else
+                        return table.dictionary[Tuple.Create(t1, t2)];
                 }
             }
+        }
 
+        public class ExistedIndexator
+        {
+            Table<T1, T2, T3> table;
+            public ExistedIndexator(Table<T1,T2,T3> table)
+            {
+                this.table = table;
+            }
+            public T3 this[T1 t1, T2 t2]
+            {
+                set
+                {
+                    Tuple<T1, T2> Key = Tuple.Create(t1, t2);
+                    if (!table.Rows.Contains(t1) || !table.Columns.Contains(t2))
+                    {
+                        throw new ArgumentException();
+                    }
+                    else
+                    {
+                        table.dictionary[Key] = value;
+                    }
+                }
+                get
+                {
+                    Tuple<T1, T2> Key = Tuple.Create(t1, t2);
+                    if (table.rows.Contains(t1) && table.columns.Contains(t2))
+                    {
+                        if (!table.dictionary.ContainsKey(Key))
+                            return default(T3);
+                        else
+                            return table.dictionary[Key];
+                    }
+                    else
+                    {
+                        throw new ArgumentException();
+                    }
+                }
+            }
         }
     }
 }

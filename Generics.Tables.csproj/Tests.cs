@@ -67,77 +67,77 @@ namespace Generics.Tables
         }
     }
 
-    //[TestFixture]
-    //public class ExistedIndex_should
-    //{
-    //    [Test]
-    //    public void FailIfGettingFromNonExistingRow()
-    //    {
-    //        var table = new Table<string, int, double>();
-    //        table.AddColumn(1);
-    //        Assert.Throws(typeof(ArgumentException), () => Console.Write(table.Existed["1", 1]));
-    //    }
-    //    [Test]
-    //    public void FailIfGettingFromNonExistingColumn()
-    //    {
-    //        var table = new Table<string, int, double>();
-    //        table.AddRow("1");
-    //        Assert.Throws(typeof(ArgumentException), () => Console.Write(table.Existed["1", 1]));
-    //    }
-    //    [Test]
-    //    public void FailIfSettingToNonExistingRow()
-    //    {
-    //        var table = new Table<string, int, double>();
-    //        table.AddColumn(1);
-    //        Assert.Throws(typeof(ArgumentException), () => table.Existed["1", 1] = 1);
-    //    }
-    //    [Test]
-    //    public void FailIfSettingToNonExistingColumn()
-    //    {
-    //        var table = new Table<string, int, double>();
-    //        table.AddRow("1");
-    //        Assert.Throws(typeof(ArgumentException), () => table.Existed["1", 1] = 1);
-    //    }
+    [TestFixture]
+    public class ExistedIndex_should
+    {
+        [Test]
+        public void FailIfGettingFromNonExistingRow()
+        {
+            var table = new Table<string, int, double>();
+            table.AddColumn(1);
+            Assert.Throws(typeof(ArgumentException), () => Console.Write(table.Existed["1", 1]));
+        }
+        [Test]
+        public void FailIfGettingFromNonExistingColumn()
+        {
+            var table = new Table<string, int, double>();
+            table.AddRow("1");
+            Assert.Throws(typeof(ArgumentException), () => Console.Write(table.Existed["1", 1]));
+        }
+        [Test]
+        public void FailIfSettingToNonExistingRow()
+        {
+            var table = new Table<string, int, double>();
+            table.AddColumn(1);
+            Assert.Throws(typeof(ArgumentException), () => table.Existed["1", 1] = 1);
+        }
+        [Test]
+        public void FailIfSettingToNonExistingColumn()
+        {
+            var table = new Table<string, int, double>();
+            table.AddRow("1");
+            Assert.Throws(typeof(ArgumentException), () => table.Existed["1", 1] = 1);
+        }
 
-    //    [Test]
-    //    public void SetToExistedRowAndColumn()
-    //    {
-    //        var table = new Table<string, int, double>();
-    //        table.AddRow("1");
-    //        table.AddColumn(1);
-    //        table.Existed["1", 1] = 1;
-    //        Assert.AreEqual(1, table.Existed["1", 1]);
-    //    }
+        [Test]
+        public void SetToExistedRowAndColumn()
+        {
+            var table = new Table<string, int, double>();
+            table.AddRow("1");
+            table.AddColumn(1);
+            table.Existed["1", 1] = 1;
+            Assert.AreEqual(1, table.Existed["1", 1]);
+        }
 
-    //    [Test]
-    //    public void GetDefaultIfNoValueSet()
-    //    {
-    //        var table = new Table<string, int, double>();
-    //        table.AddRow("1");
-    //        table.AddColumn(1);
-    //        Assert.AreEqual(0, table.Existed["1", 1]);
-    //    }
-    //}
+        [Test]
+        public void GetDefaultIfNoValueSet()
+        {
+            var table = new Table<string, int, double>();
+            table.AddRow("1");
+            table.AddColumn(1);
+            Assert.AreEqual(0, table.Existed["1", 1]);
+        }
+    }
 
-    //[TestFixture]
-    //public class BothIndices_should
-    //{
-    //    [Test]
-    //    public void WorkTogether1()
-    //    {
-    //        var table = new Table<string, int, double>();
-    //        table.AddRow("1");
-    //        table.AddColumn(1);
-    //        table.Existed["1", 1] = 2;
-    //        Assert.AreEqual(2, table.Open["1", 1]);
-    //    }
+    [TestFixture]
+    public class BothIndices_should
+    {
+        [Test]
+        public void WorkTogether1()
+        {
+            var table = new Table<string, int, double>();
+            table.AddRow("1");
+            table.AddColumn(1);
+            table.Existed["1", 1] = 2;
+            Assert.AreEqual(2, table.Open["1", 1]);
+        }
 
-    //    [Test]
-    //    public void WorkTogether2()
-    //    {
-    //        var table = new Table<string, int, double>();
-    //        table.Open["1", 1] = 2;
-    //        Assert.AreEqual(2, table.Existed["1", 1]);
-    //    }
-    //}
+        [Test]
+        public void WorkTogether2()
+        {
+            var table = new Table<string, int, double>();
+            table.Open["1", 1] = 2;
+            Assert.AreEqual(2, table.Existed["1", 1]);
+        }
+    }
 }
