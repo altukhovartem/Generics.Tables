@@ -1,0 +1,9 @@
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\bin\Debug\Generics.Table.exe.config
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\bin\Debug\Generics.Table.exe
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\bin\Debug\Generics.Table.pdb
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\bin\Debug\nunit.framework.dll
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\bin\Debug\nunitlite.dll
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\obj\Debug\Generics.Tables.csprojResolveAssemblyReference.cache
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\obj\Debug\Generics.Tables.csproj.CoreCompileInputs.cache
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\obj\Debug\Generics.Table.exe
+C:\MyRepo\Generics.Tables\Generics.Tables.csproj\obj\Debug\Generics.Table.pdb

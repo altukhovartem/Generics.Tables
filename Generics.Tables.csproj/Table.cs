@@ -26,26 +26,30 @@ namespace Generics.Tables
 {
     public class Table<T1, T2, T3>
     {
-        Dictionary<Tuple<T1,T2>, T3> dictionary = new Dictionary<Tuple<T1, T2>, T3>(); 
-        public IEnumerable<T1> Rows { get; set; }
-        public IEnumerable<T2> Columns { get; set; }
+        Dictionary<Tuple<T1, T2>, T3> dictionary;
+        private List<T1> rows;
+        private List<T2> columns;
+
+        public IEnumerable<T1> Rows { get => rows; set => rows = value as List<T1>; }
+        public IEnumerable<T2> Columns { get => columns; set => columns = value as List<T2>; }
         public OpenIndexator Open { get; set; }
 
         public void AddRow(T1 t1)
         {
-            ((List<T1>)Rows).Add(t1);
+            rows.Add(t1);
         }
 
         public void AddColumn(T2 t2)
         {
-            ((List<T2>)Columns).Add(t2);
+            columns.Add(t2);
         }
 
         public Table()
         {
-            Rows = new List<T1>();
-            Columns = new List<T2>();
+            rows = new List<T1>();
+            columns = new List<T2>();
             Open = new OpenIndexator(this);
+            dictionary = new Dictionary<Tuple<T1, T2>, T3>();
         }
 
         public class OpenIndexator
