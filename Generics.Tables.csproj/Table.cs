@@ -26,14 +26,14 @@ namespace Generics.Tables
 {
     public class Table<T1, T2, T3>
     {
-        private Dictionary<Tuple<T1, T2>, T3> dictionary;
-        private List<T1> rows;
-        private List<T2> columns;
+        private Dictionary<Tuple<T1, T2>, T3> dictionary = new Dictionary<Tuple<T1, T2>, T3>();
+        private List<T1> rows = new List<T1>();
+        private List<T2> columns = new List<T2>();
 
-        public IEnumerable<T1> Rows { get => rows; set => rows = value as List<T1>; }
-        public IEnumerable<T2> Columns { get => columns; set => columns = value as List<T2>; }
-        public OpenIndexator Open { get; set; }
-        public ExistedIndexator Existed { get; set; }
+        public IEnumerable<T1> Rows { get => rows;}
+        public IEnumerable<T2> Columns { get => columns;}
+        public OpenIndexator Open { get; }
+        public ExistedIndexator Existed { get; }
 
         public void AddRow(T1 t1)
         {
@@ -49,10 +49,7 @@ namespace Generics.Tables
 
         public Table()
         {
-            rows = new List<T1>();
-            columns = new List<T2>();
             Open = new OpenIndexator(this);
-            dictionary = new Dictionary<Tuple<T1, T2>, T3>();
             Existed = new ExistedIndexator(this);
         }
 
